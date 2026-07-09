@@ -135,7 +135,7 @@ const users = [
 ];
 
 // Accessing second object's email
-console.log(users[1].email);
+// console.log(users[1].email);
 
 /*
 Explanation
@@ -159,7 +159,7 @@ g@gmail.com
 // OBJECT METHODS
 // ===============================
 
-console.log(tinderUser);
+// console.log(tinderUser);
 
 /*
 Output
@@ -174,7 +174,7 @@ Output
 
 // Object.keys()
 // Returns an array containing all keys.
-console.log(Object.keys(tinderUser));
+// console.log(Object.keys(tinderUser));
 
 /*
 Output
@@ -189,7 +189,7 @@ Output
 
 // Object.values()
 // Returns an array containing all values.
-console.log(Object.values(tinderUser));
+// console.log(Object.values(tinderUser));
 
 /*
 Output
@@ -205,7 +205,7 @@ Output
 // Object.entries()
 // Converts each key-value pair into an array.
 
-console.log(Object.entries(tinderUser));
+// console.log(Object.entries(tinderUser));
 
 /*
 Output
@@ -223,7 +223,7 @@ Useful for looping.
 // hasOwnProperty()
 // Checks whether the object contains a particular property.
 
-console.log(tinderUser.hasOwnProperty("isLoggedIn"));
+// console.log(tinderUser.hasOwnProperty("isLoggedIn"));
 
 /*
 Output
@@ -238,7 +238,7 @@ false -> property doesn't exist
 
 // Example
 
-console.log(tinderUser.hasOwnProperty("age"));
+// console.log(tinderUser.hasOwnProperty("age"));
 
 /*
 Output
@@ -275,6 +275,210 @@ false
 
 */
 
+// ***********************************************************************
+// ***********************************************************************
+// ***********************************************************************
+
+// ===============================
+// OBJECT DESTRUCTURING
+// ===============================
+
+// Creating an object
+
+const course = {
+    coursename: "JS Tutorials",
+    price: "999",
+    courseInstructor: "Hitesh"
+};
 
 
-// *********************************************************************
+// ===============================
+// ACCESSING OBJECT PROPERTIES
+// ===============================
+
+// Traditional way
+
+// console.log(course.courseInstructor);
+
+/*
+Output
+
+Hitesh
+*/
+
+
+// ===============================
+// OBJECT DESTRUCTURING
+// ===============================
+
+// Destructuring means extracting properties
+// from an object and storing them into variables.
+
+// Syntax
+
+// const {propertyName} = objectName;
+
+const { courseInstructor } = course;
+
+console.log(courseInstructor);
+
+/*
+Output
+
+Hitesh
+*/
+
+
+// ===============================
+// DESTRUCTURING WITH RENAMING
+// ===============================
+
+// We can also rename the variable while destructuring.
+
+// Syntax
+
+// const {propertyName : newVariableName} = objectName;
+
+const { courseInstructor: instructor } = course;
+
+// courseInstructor is renamed to instructor
+
+console.log(instructor);
+
+/*
+Output
+
+Hitesh
+*/
+
+
+// ===============================
+// WHY USE DESTRUCTURING?
+// ===============================
+
+/*
+
+Instead of writing
+
+course.courseInstructor
+course.price
+course.coursename
+
+again and again,
+
+we can write
+
+const { courseInstructor, price, coursename } = course;
+
+Now we can directly use
+
+courseInstructor
+price
+coursename
+
+This makes the code cleaner and easier to read.
+
+*/
+
+
+// ===============================
+// DESTRUCTURING MULTIPLE VALUES
+// ===============================
+
+const { coursename, price } = course;
+
+console.log(coursename);
+console.log(price);
+
+/*
+Output
+
+JS Tutorials
+999
+*/
+
+
+// ===============================
+// JSON (JavaScript Object Notation)
+// ===============================
+
+// JSON is a lightweight format used
+// to exchange data between a server and a client.
+
+// JSON looks similar to JavaScript objects,
+// but there are some important differences.
+
+
+// JavaScript Object
+
+const student = {
+    name: "Sahil",
+    age: 22,
+    city: "Noida"
+};
+
+
+// JSON
+
+/*
+{
+    "name": "Sahil",
+    "age": 22,
+    "city": "Noida"
+}
+*/
+
+
+// ===============================
+// DIFFERENCE BETWEEN OBJECT & JSON
+// ===============================
+
+/*
+
+JavaScript Object
+
+{
+    name: "Sahil"
+}
+
+✔ Keys may or may not have quotes.
+✔ Can contain functions.
+✔ Used inside JavaScript.
+
+
+JSON
+
+{
+    "name": "Sahil"
+}
+
+✔ Keys MUST be inside double quotes.
+✔ Cannot contain functions.
+✔ Used for sending and receiving data.
+
+*/
+
+
+// ===============================
+// WHAT IS AN API?
+// ===============================
+
+/*
+
+API = Application Programming Interface
+
+Think of an API as a waiter in a restaurant.
+
+You (Client)
+      │
+      ▼
+    API (Waiter)
+      │
+      ▼
+Server / Database
+
+You ask for data.
+The API requests it from the server.
+The server sends the data back through the API.
+
+*/
