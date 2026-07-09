@@ -4,26 +4,38 @@
 
 // Singleton Object
 // Created using Object.create()
-// Example:
+
+// Example
 // const obj = Object.create({})
 
-// Object Literal (Most Common Way)
+// Object Literal
+// Most common way to create an object.
 // Objects store data in key-value pairs.
 
-// Creating a Symbol
+
+// ===============================
+// CREATING A SYMBOL
+// ===============================
+
 // Symbol creates a unique value.
 const mySym = Symbol("key1");
 
-// Creating an object using object literal
+
+// ===============================
+// CREATING AN OBJECT
+// ===============================
+
 const JsUser = {
+
     // Normal key-value pair
     name: "Sahil",
 
-    // Key with space must always be accessed using []
+    // Keys having spaces must be written inside quotes
+    // They can only be accessed using bracket notation.
     "full name": "Sahil Rai",
 
-    // Using Symbol as a key
-    // Without [] it would become a normal string key.
+    // Symbol used as an object key
+    // [] tells JavaScript to use the Symbol itself.
     [mySym]: "mykey1",
 
     age: 22,
@@ -31,108 +43,248 @@ const JsUser = {
     email: "sahil@google.com",
     isLoggedIn: false,
 
-    // Arrays can also be stored inside objects
+    // Objects can also store arrays.
     lastLoginDays: ["Monday", "Saturday"]
 };
+
 
 // ===============================
 // ACCESSING OBJECT VALUES
 // ===============================
 
-// Dot notation
-// Used when key has no spaces or special characters.
+// Dot Notation
+// Used for normal property names.
+
 console.log(JsUser.email);
 
-// Bracket notation
-// Useful when:
-// 1. Key contains spaces
-// 2. Key is stored in a variable
-// 3. Key is a Symbol
+// Output
+// sahil@google.com
+
+
+// Bracket Notation
+// Used when:
+// 1. Property contains spaces
+// 2. Property name is stored inside a variable
+// 3. Property is a Symbol
 
 console.log(JsUser["email"]);
 
-// Accessing key with spaces
+// Output
+// sahil@google.com
+
+
+// Accessing property having spaces
+
 console.log(JsUser["full name"]);
 
-// Accessing Symbol key
+// Output
+// Sahil Rai
+
+
+// Accessing Symbol property
+
 console.log(JsUser[mySym]);
 
-// Checking data type
+// Output
+// mykey1
+
+
+// Checking datatype
+
 console.log(typeof JsUser[mySym]);
 
+// Output
+// string
+
+
 // ===============================
-// UPDATING OBJECT VALUES
+// UPDATING OBJECT PROPERTIES
 // ===============================
 
-// Changing email
+// Changing the value of email
+
 JsUser.email = "sahil@microsoft.com";
 
 console.log(JsUser.email);
+
+// Output
+// sahil@microsoft.com
+
 
 // ===============================
 // FREEZING AN OBJECT
 // ===============================
 
-// Prevents any modifications to the object
+// Object.freeze()
+// Prevents:
+// ✔ Adding properties
+// ✔ Updating properties
+// ✔ Deleting properties
+
 // Uncomment to test
 
 // Object.freeze(JsUser);
 
-// This change will work only if object is NOT frozen
+
+// This update will work only if the object is NOT frozen.
+
 JsUser.email = "sahil@chatgpt.com";
 
 console.log(JsUser.email);
 
-// Print complete object
+// Output
+// sahil@chatgpt.com
+
+
+// Printing the complete object
+
 console.log(JsUser);
 
+/*
+Output
+
+{
+  name: 'Sahil',
+  'full name': 'Sahil Rai',
+  age: 22,
+  location: 'Noida',
+  email: 'sahil@chatgpt.com',
+  isLoggedIn: false,
+  lastLoginDays: [ 'Monday', 'Saturday' ],
+  [Symbol(key1)]: 'mykey1'
+}
+*/
+
+
 // ===============================
-// ADDING METHODS (FUNCTIONS)
+// ADDING METHODS TO AN OBJECT
 // ===============================
 
-// Functions stored inside objects are called Methods.
+// Functions stored inside an object
+// are called Methods.
+
 
 // Method 1
+
 JsUser.greeting = function () {
     console.log("Hello JS User");
 };
 
+
 // Method 2
+
 // 'this' refers to the current object.
+// this.name = JsUser.name
+
 JsUser.greetingTwo = function () {
     console.log(`Hello JS User, ${this.name}`);
 };
+
 
 // ===============================
 // CALLING METHODS
 // ===============================
 
-// Prints the function definition only
-// (because () is not used)
+// Without ()
+// Prints the function definition only.
+
 console.log(JsUser.greeting);
 
-// Calls the function
-// Function prints "Hello JS User"
-// After execution it returns undefined
-console.log(JsUser.greeting());
-
-// Calls second function
-// this.name => "Sahil"
-console.log(JsUser.greetingTwo());
-
 /*
-OUTPUT
+Output
 
 [Function (anonymous)]
+*/
+
+
+// With ()
+// Executes the function.
+
+console.log(JsUser.greeting());
+
+/*
+Output
 
 Hello JS User
 undefined
+*/
+
+
+// Calling second method
+
+console.log(JsUser.greetingTwo());
+
+/*
+Output
 
 Hello JS User, Sahil
 undefined
+*/
 
-Why undefined?
 
-Because console.log() is printing the return value of the function.
-Your functions don't return anything, so JavaScript automatically returns undefined.
+// ===============================
+// WHY IS "undefined" PRINTED?
+// ===============================
+
+/*
+
+console.log(JsUser.greeting());
+
+Step 1
+JsUser.greeting() executes.
+
+↓
+
+Hello JS User
+
+
+Step 2
+
+The function does not return anything.
+
+↓
+
+return undefined
+
+
+Step 3
+
+console.log() prints the returned value.
+
+↓
+
+undefined
+
+*/
+
+
+// ===============================
+// SUMMARY
+// ===============================
+
+/*
+
+1. Object.create()  -> Creates a Singleton Object.
+
+2. {}               -> Creates an Object Literal.
+
+3. Dot Notation     -> obj.name
+
+4. Bracket Notation -> obj["full name"]
+
+5. Symbol           -> Creates a unique property key.
+
+6. Object.freeze()  -> Makes an object immutable.
+
+7. Methods          -> Functions inside objects.
+
+8. this             -> Refers to the current object.
+
+9. obj.method       -> Prints function definition.
+
+10. obj.method()    -> Executes the function.
+
+11. Functions without a return statement
+    automatically return undefined.
+
 */
