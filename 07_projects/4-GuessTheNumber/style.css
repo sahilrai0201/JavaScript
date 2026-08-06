@@ -1,0 +1,113 @@
+html {
+    margin: 0;
+}
+
+body {
+    background-color: #212121;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+nav {
+    background-color: #161616;
+    padding: 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 18px;
+}
+
+#wrapper {
+    width: 500px;
+    margin: 50px auto;
+    text-align: center;
+    background-color: #474747;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 32px;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+#guess {
+    display: block;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.guessField {
+    width: 220px;
+    height: 40px;
+    font-size: 22px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+}
+
+.guessSubmit {
+    display: block;
+    margin: 20px auto;
+    width: 180px;
+    height: 45px;
+    font-size: 18px;
+    background-color: #161616;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.guessSubmit:hover {
+    background-color: #333;
+}
+
+.resultParas {
+    margin-top: 25px;
+}
+
+.guesses {
+    color: yellow;
+    font-weight: bold;
+}
+
+.lastResult {
+    color: #00ff99;
+    font-weight: bold;
+}
+
+.lowOrHi {
+    margin-top: 20px;
+    font-size: 22px;
+    font-weight: bold;
+    color: orange;
+}
+
+.button {
+    margin-top: 25px;
+}
+
+#newGame {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #161616;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#newGame:hover {
+    background-color: #333;
+}
