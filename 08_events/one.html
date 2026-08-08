@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!--
+        This makes the webpage responsive on different screen sizes.
+        For example, it helps the page display properly on mobile phones.
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HTML Events</title>
+</head>
+
+
+<body style="background-color : #414141; color : aliceblue">
+
+    <h2>Amazing image</h2>
+
+    <div>
+
+        <!--
+            We have created a <ul> with id="images".
+
+            This is important for our JavaScript event handling.
+
+            All the images are inside this <ul>.
+            Later, instead of adding an event listener to every image,
+            we can add ONE event listener to this <ul>.
+
+            This concept is called:
+
+                EVENT DELEGATION
+
+            It is useful when we have many similar elements.
+        -->
+
+        <ul id="images">
+
+            <li>
+                <img width="200px"
+                     id="photoshop"
+                     src="https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
+                     alt="photoshop">
+            </li>
+
+            <li>
+                <img width="200px"
+                     id="japan"
+                     src="https://images.pexels.com/photos/3532553/pexels-photo-3532553.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
+                     alt="">
+            </li>
+
+            <li>
+                <img width="200px"
+                     id="river"
+                     src="https://images.pexels.com/photos/3532551/pexels-photo-3532551.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
+                     alt="">
+            </li>
+
+            <li>
+                <img width="200px"
+                     id="owl"
+                     src="https://images.pexels.com/photos/3532552/pexels-photo-3532552.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
+                     alt="">
+            </li>
+
+            <li>
+                <img width="200px"
+                     id="prayer"
+                     src="https://images.pexels.com/photos/2522671/pexels-photo-2522671.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
+                     alt="">
+            </li>
+
+            <li>
+                <a style="color : aliceblue"
+                   href="https://google.com"
+                   id="google">
+                   Google
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+</body>
+
+
+<script>
+
+    // ============================================================
+    // 1. onclick PROPERTY
+    // ============================================================
+
+    /*
+        One of the simplest ways to handle an event is using onclick.
+
+        document.getElementById('owl')
+            -> Finds the element whose id is "owl".
+
+        .onclick
+            -> Tells JavaScript what should happen when that element
+               is clicked.
+
+        function()
+            -> This function executes when the user clicks the owl image.
+
+        USE CASE:
+        ----------
+        Useful for simple event handling.
+
+        However, addEventListener() is generally preferred because
+        it gives us more flexibility.
+    */
+
+    // document.getElementById('owl').onclick = function(){
+    //     alert('Owl clicked')
+    // }
+
+
+    // ============================================================
+    // 2. addEventListener()
+    // ============================================================
+
+    /*
+        addEventListener() is the modern and commonly preferred
+        way to handle events in JavaScript.
+
+        Syntax:
+
+        element.addEventListener('event', function(){
+            // code
+        });
+
+        Here:
+
+        'click'
+            -> The event we are listening for.
+
+        function()
+            -> The function that will execute when the event occurs.
+
+        USE CASE:
+        ----------
+        addEventListener() is used whenever we want JavaScript
+        to react to user actions such as:
+
+            - click
+            - double click
+            - mouseover
+            - keydown
+            - keyup
+            - submit
+            - change
+            - input
+            - etc.
+
+        APPLICATION:
+        -------------
+        Buttons, forms, menus, games, image galleries,
+        navigation bars, dropdowns, etc.
+    */
+
+    // document.getElementById('owl').addEventListener('click', function(){
+    //     alert('Owl clicked again')
+    // })
+
+
+    // ============================================================
+    // 3. EVENT BUBBLING
+    // ============================================================
+
+    /*
+        Here we attach the click event to the <ul>.
+
+        Notice that we are NOT attaching it directly to the images.
+
+        HTML structure:
+
+            ul
+             |
+             |--- li
+             |     |
+             |     --- img
+             |
+             |--- li
+             |     |
+             |     --- img
+
+
+        If we click an image:
+
+            IMG
+             ↓
+            LI
+             ↓
+            UL
+             ↓
+            BODY
+             ↓
+            HTML
+             ↓
+            DOCUMENT
+
+        The event moves upward through the DOM tree.
+
+        This is called:
+
+                    EVENT BUBBLING
+
+        So, if we click the owl image, the click event can reach
+        the <ul> as well.
+
+        USE CASE:
+        ----------
+        Event bubbling is useful for event delegation.
+
+        Instead of creating 100 event listeners for 100 buttons,
+        we can create one event listener on their parent.
+    */
+
+    // document.getElementById('images').addEventListener('click', function(e){
+    //     alert('Clicked inside the ul')
+    // }, false)
+
+
+    // ============================================================
+    // 4. stopPropagation()
+    // ============================================================
+
+    /*
+        stopPropagation() prevents the event from continuing
+        to propagate through the DOM.
+
+        Example:
+
+        If we click the owl:
+
+            owl
+             ↓
+            li
+             ↓
+            ul
+
+        Normally the event bubbles from owl to ul.
+
+        But:
+
+            e.stopPropagation();
+
+        stops that propagation.
+
+        Therefore, the parent <ul> will not receive the event
+        through bubbling.
+
+        USE CASE:
+        ----------
+        Useful when you have nested elements and you don't want
+        a parent element's event handler to execute when a child
+        is clicked.
+
+        APPLICATION:
+        ------------
+        - Dropdown menus
+        - Modal windows
+        - Nested buttons
+        - Menus
+        - Interactive cards
+    */
+
+    // document.getElementById('owl').addEventListener('click', function(e){
+    //     alert('Owl clicked')
+
+    //     // Stop the click event from bubbling to the parent <ul>.
+    //     e.stopPropagation()
+
+    // }, false)
+
+
+    // ============================================================
+    // 5. preventDefault()
+    // ============================================================
+
+    /*
+        preventDefault() prevents the browser's DEFAULT behavior
+        associated with an element.
+
+        Here we have:
+
+            <a href="https://google.com">
+
+        Normally, when we click the Google link,
+        the browser will navigate to Google.
+
+        But:
+
+            e.preventDefault();
+
+        prevents that default navigation.
+
+        IMPORTANT:
+        ----------
+        preventDefault() and stopPropagation() are DIFFERENT.
+
+        preventDefault()
+            -> Stops the browser's default action.
+
+        stopPropagation()
+            -> Stops the event from moving through the DOM.
+
+        In this example we are using BOTH.
+
+        USE CASE:
+        ----------
+        preventDefault() is commonly used with:
+
+            - Forms
+            - Links
+            - Buttons
+            - Custom navigation
+
+        APPLICATION:
+        ------------
+        For example, in a form:
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+            });
+
+        This prevents the browser from refreshing/submitting
+        the form normally, allowing JavaScript to handle it.
+    */
+
+    // document.getElementById('google').addEventListener('click', function(e){
+
+    //     // Prevent the browser from opening Google.
+    //     e.preventDefault();
+
+    //     // Prevent the event from bubbling to the parent <ul>.
+    //     e.stopPropagation();
+
+    //     console.log("Clicked google")
+
+    // }, false)
+
+
+    // ============================================================
+    // 6. EVENT DELEGATION
+    // ============================================================
+
+    /*
+        Now we are using the most important part of this example.
+
+        Instead of adding separate event listeners to:
+
+            photoshop
+            japan
+            river
+            owl
+            prayer
+
+        we add ONLY ONE event listener to:
+
+            #images
+
+        Why does this work?
+
+        Because of EVENT BUBBLING.
+
+        When we click an image:
+
+            IMG
+             ↓
+            LI
+             ↓
+            UL (#images)
+
+        The click event bubbles up to the <ul>.
+
+        Therefore, the <ul>'s event listener can detect that
+        an image was clicked.
+
+        This technique is called:
+
+                    EVENT DELEGATION
+
+        ADVANTAGES:
+        -----------
+        1. Fewer event listeners
+        2. Better performance for large lists
+        3. Less code
+        4. Works nicely with dynamically created elements
+
+        REAL-WORLD APPLICATION:
+        -----------------------
+        Imagine an e-commerce website with 500 products.
+
+        Instead of:
+
+            product1.addEventListener(...)
+            product2.addEventListener(...)
+            product3.addEventListener(...)
+            ...
+            product500.addEventListener(...)
+
+        We can put ONE event listener on the parent container.
+
+    */
+
+    document.querySelector('#images').addEventListener('click', function(e){
+
+        /*
+            'e' is the EVENT OBJECT.
+
+            JavaScript automatically provides this object when
+            an event occurs.
+
+            It contains information about the event.
+
+            For example:
+
+                e.target
+                e.type
+                e.preventDefault()
+                e.stopPropagation()
+
+            etc.
+        */
+
+
+        // ========================================================
+        // 7. EVENT OBJECT
+        // ========================================================
+
+        /*
+            Uncomment this to see the complete event object
+            in the browser console.
+
+            It contains a lot of information about the event.
+        */
+
+        // console.log(e);
+
+
+        // ========================================================
+        // 8. e.target
+        // ========================================================
+
+        /*
+            e.target tells us:
+
+                "Which exact element was clicked?"
+
+            For example:
+
+            If we click the owl image:
+
+                e.target
+                    ↓
+                <img id="owl">
+
+            If we click the Google link:
+
+                e.target
+                    ↓
+                <a id="google">Google</a>
+
+            This is extremely useful with event delegation.
+
+        */
+
+        // console.log(e.target);
+
+
+        // ========================================================
+        // 9. parentNode
+        // ========================================================
+
+        /*
+            e.target.parentNode gives us the parent of the
+            element that was clicked.
+
+            Suppose we click:
+
+                <img id="owl">
+
+            Its parent is:
+
+                <li>
+                    <img id="owl">
+                </li>
+
+            Therefore:
+
+                e.target.parentNode
+
+            gives us the <li> element.
+
+        */
+
+        // console.log(e.target.parentNode);
+
+
+        // ========================================================
+        // 10. Removing the clicked element's parent
+        // ========================================================
+
+        /*
+            Here:
+
+                let removeIt = e.target.parentNode;
+
+            We store the parent <li> inside removeIt.
+
+            Then:
+
+                removeIt.remove();
+
+            removes that <li> from the DOM.
+
+            Since the image is inside the <li>,
+            removing the <li> also removes the image.
+
+            Example:
+
+                Before:
+
+                <li>
+                    <img id="owl">
+                </li>
+
+
+                After:
+
+                The entire <li> is removed.
+
+            USE CASE:
+            ----------
+            This technique can be used for:
+
+                - Delete buttons
+                - Remove items from cart
+                - Remove todo items
+                - Delete comments
+                - Remove images
+                - Dynamic lists
+        */
+
+        // let removeIt = e.target.parentNode
+        // removeIt.remove();
+
+
+        // ========================================================
+        // 11. tagName
+        // ========================================================
+
+        /*
+            e.target.tagName gives us the HTML tag name of
+            the element that was clicked.
+
+            Examples:
+
+                <img>  -> "IMG"
+                <li>   -> "LI"
+                <a>    -> "A"
+
+            IMPORTANT:
+            ----------
+            tagName returns the tag name in uppercase.
+
+            Therefore:
+
+                IMG
+
+            not:
+
+                img
+        */
+
+        console.log(e.target.tagName);
+
+
+        // ========================================================
+        // 12. Checking which element was clicked
+        // ========================================================
+
+        /*
+            We only want to remove an image when an IMAGE is clicked.
+
+            So we check:
+
+                e.target.tagName === 'IMG'
+
+            If the clicked element is an image,
+            the condition becomes true.
+
+            If we click the Google link:
+
+                e.target.tagName === 'A'
+
+            Therefore the condition becomes false.
+
+            This prevents the Google link from being removed.
+
+            USE CASE:
+            ----------
+            This is very common when using event delegation.
+
+            The parent handles the event, but we decide
+            which child element should actually perform the action.
+        */
+
+        if(e.target.tagName === 'IMG'){
+
+
+            // ====================================================
+            // 13. Getting the ID of the clicked element
+            // ====================================================
+
+            /*
+                Every image has a unique id:
+
+                    photoshop
+                    japan
+                    river
+                    owl
+                    prayer
+
+                e.target.id gives us the id of the exact
+                element that was clicked.
+
+                Example:
+
+                Click owl:
+
+                    e.target.id
+                        ↓
+                    "owl"
+
+                Click river:
+
+                    e.target.id
+                        ↓
+                    "river"
+
+                This is useful when we want to know exactly
+                which element the user interacted with.
+            */
+
+            console.log(e.target.id);
+
+
+            // ====================================================
+            // 14. Removing the clicked image
+            // ====================================================
+
+            /*
+                e.target is the image itself.
+
+                e.target.parentNode is the <li> containing
+                that image.
+
+                We store the <li> inside removeIt.
+
+                Then removeIt.remove() removes that <li>
+                from the DOM.
+
+                Therefore, the clicked image disappears.
+
+                Example:
+
+                    User clicks OWL
+
+                    e.target
+                        ↓
+                    <img id="owl">
+
+                    e.target.parentNode
+                        ↓
+                    <li>
+                        <img id="owl">
+                    </li>
+
+                    removeIt.remove()
+                        ↓
+                    <li> is removed
+                        ↓
+                    OWL image disappears
+            */
+
+            let removeIt = e.target.parentNode;
+
+            removeIt.remove();
+        }
+
+    }, false);
+
+
+</script>
+
+</html>
