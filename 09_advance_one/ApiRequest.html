@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--
+        Defines the character encoding used by the webpage.
+        UTF-8 supports almost all characters and symbols.
+    -->
+    <meta charset="UTF-8">
+
+    <!--
+        Makes the webpage responsive.
+
+        width=device-width
+            → Sets the page width equal to the device's screen width.
+
+        initial-scale=1.0
+            → Sets the initial zoom level to 100%.
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title displayed in the browser tab -->
+    <title>XMLHttpRequest Example</title>
+</head>
+
+<body style="background-color: #212121; color: white;">
+
+    <!--
+        XMLHttpRequest has different readyState values.
+
+        0 = UNSENT
+            The XMLHttpRequest object has been created,
+            but open() has not been called yet.
+
+        1 = OPENED
+            The open() method has been called successfully.
+
+        2 = HEADERS_RECEIVED
+            The send() method has been called,
+            and the response headers and status are available.
+
+        3 = LOADING
+            The response is currently being downloaded.
+            responseText may contain partial response data.
+
+        4 = DONE
+            The entire request has completed.
+            At this point, we can process the response.
+    -->
+
+    0 UNSENT : Client has been created. open() not called yet <br>
+
+    1 OPENED : open() has been called <br>
+
+    2 HEADERS_RECEIVED : send() has been called,
+    and headers and status are available <br>
+
+    3 LOADING : Downloading; responseText holds partial data <br>
+
+    4 DONE : The operation is complete <br>
+
+
+    <script>
+
+        /*
+            This is the API endpoint from GitHub.
+
+            We are requesting information about the GitHub user:
+            "sahilrai0201"
+
+            The API will return information such as:
+            - username
+            - followers
+            - following
+            - public repositories
+            - name
+            - bio
+            - etc.
+        */
+        const requestUrl = 'https://api.github.com/users/sahilrai0201';
+
+
+        /*
+            Create a new XMLHttpRequest object.
+
+            XMLHttpRequest (XHR) is a JavaScript object used
+            to make HTTP requests from the browser.
+
+            In simple words:
+
+                JavaScript
+                     ↓
+                XMLHttpRequest
+                     ↓
+                GitHub API
+                     ↓
+                Response
+        */
+        const xhr = new XMLHttpRequest();
+
+
+        /*
+            open() prepares the HTTP request.
+
+            First argument:
+                'GET'
+
+            GET means:
+                "Give me/read the requested data."
+
+            Second argument:
+                requestUrl
+
+            This tells the browser where the request should be sent.
+
+            IMPORTANT:
+            open() does NOT actually send the request.
+
+            It only prepares/configures it.
+        */
+        xhr.open('GET', requestUrl);
+
+
+        /*
+            onreadystatechange is an event handler.
+
+            It runs whenever the readyState of the
+            XMLHttpRequest changes.
+
+            readyState can change like:
+
+                0 → 1 → 2 → 3 → 4
+
+            Therefore, this function may execute multiple times
+            during a single request.
+        */
+        xhr.onreadystatechange = function () {
+
+            /*
+                Print the current readyState in the console.
+
+                You will typically see something like:
+
+                    1
+                    2
+                    3
+                    4
+
+                The exact behavior can vary depending on the
+                browser and network conditions.
+            */
+            console.log(xhr.readyState);
+
+
+            /*
+                We only want to process the response when
+                the request has completely finished.
+
+                readyState === 4 means:
+
+                    DONE
+
+                Therefore, the complete response is now available.
+            */
+            if (xhr.readyState === 4) {
+
+
+                /*
+                    this.responseText contains the response
+                    received from the server.
+
+                    GitHub sends the response in JSON format.
+
+                    Example response:
+
+                    {
+                        "login": "sahilrai0201",
+                        "id": 123456,
+                        "followers": 10,
+                        "following": 20
+                    }
+
+                    However, responseText is initially a STRING.
+
+                    JSON.parse() converts that JSON string
+                    into a JavaScript object.
+                */
+                const data = JSON.parse(this.responseText);
+
+
+                /*
+                    Check the data type of the parsed response.
+
+                    Before JSON.parse():
+
+                        responseText → string
+
+                    After JSON.parse():
+
+                        data → object
+
+                    Therefore, the console will print:
+
+                        object
+                */
+                console.log(typeof data);
+
+
+                /*
+                    Access the "followers" property
+                    from the JavaScript object.
+
+                    For example, if GitHub returns:
+
+                    {
+                        "login": "sahilrai0201",
+                        "followers": 25
+                    }
+
+                    Then:
+
+                        data.followers
+
+                    gives:
+
+                        25
+                */
+                console.log(data.followers);
+            }
+        };
+
+
+        /*
+            send() actually sends the HTTP request.
+
+            Until this line, the request has only been configured.
+
+            Flow:
+
+                1. Create XMLHttpRequest
+                        ↓
+                2. open()
+                        ↓
+                3. onreadystatechange
+                        ↓
+                4. send()
+                        ↓
+                5. Request goes to GitHub
+                        ↓
+                6. GitHub sends response
+                        ↓
+                7. readyState changes
+                        ↓
+                8. readyState === 4
+                        ↓
+                9. Process response
+        */
+        xhr.send();
+
+    </script>
+
+</body>
+
+</html>
